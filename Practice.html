@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Practice</title>
+
+	<!-- 2020.04.28 css external css stylesheet-->
+	<link rel="stylesheet" type="text/css" href="Practice.css">
+	<!-- <script type="text/javascript" src="xxx.js"></script> -->
+	<script>
+		function Falert(x) {
+			alert(x)
+		}
+	</script>
+</head>
+<body onscroll="show()">
+	<!-- 2021.04.30 导航栏学习 -->
+
+	<!-- 2021.04.29 图片置顶实验 -->
+	<img id="headerbg" src="676681.jpg">
+	<!-- End -->
+
+
+	<!-- 2021.04.19 -->
+	<h1>Practice</h1>
+	<!-- End -->
+
+	
+	<!-- 2021.04.29 横向导航栏实验-->
+	<div id="menu">
+		<ul>
+			<li><a href="#" target="_blank" class="menuitem">Menu</a></li>
+			<li><a class="interval">|</a></li>
+			<li><a href="#" target="_blank" class="menuitem">Menu</a></li>
+			<li><a class="interval">|</a></li>
+			<li><a href="#" target="_blank" class="menuitem">Menu</a></li>
+			<li><a class="interval">|</a></li>
+			<li><a href="#" target="_blank" class="menuitem">Menu</a></li>
+		</ul>
+
+		<form method="GET" target="_blank" id="search">
+			<input type="text" name="q" id="text">
+			<input type="submit" name="google" value="Google" id="google" formaction="http://www.google.com/search">
+			<input type="submit" name="bing" value="Bing" id="bing" formaction="https://cn.bing.com/search">
+		</form>
+	</div>
+	<!-- End -->
+
+
+	<!-- 2021.05.15 回到顶部/底部 -->
+	<div>
+		<button onclick="totop()" id="topBtn" class="TBbutton">Back to top</button>
+		<button onclick="tobottom()" id="bottomBtn" class="TBbutton">Go to bottom</button>
+	</div>
+	<script>
+		var Ttimer, Btimer, Bspace;
+		var Tspace = document.body.scrollTop || document.documentElement.scrollTop;
+	
+		function totop() {
+			cancelAnimationFrame(Ttimer);
+			Ttimer = requestAnimationFrame(back);
+		}
+		function back(){
+			if(Tspace > 0) {
+				document.body.scrollTop = document.documentElement.scrollTop = Tspace - 120;
+				Ttimer = requestAnimationFrame(back);
+			} else {
+				cancelAnimationFrame(Ttimer);
+			} 
+		}
+
+		function tobottom() {
+			cancelAnimationFrame(Btimer);
+			Btimer = requestAnimationFrame(go);
+		}
+
+		function go() {
+			var old = document.body.scrollTop || document.documentElement.scrollTop;
+			document.body.scrollTop = document.documentElement.scrollTop += 120;
+			var fresh = document.body.scrollTop || document.documentElement.scrollTop;
+			
+			if(fresh == old) {
+				cancelAnimationFrame(Btimer);
+			} else {
+				Btimer = requestAnimationFrame(go);					
+			}
+
+		}
+
+		function show() {
+			var topBtnObj = document.getElementById("topBtn");
+			var bottomBtnObj = document.getElementById("bottomBtn");
+			Tspace = document.body.scrollTop || document.documentElement.scrollTop;
+			if(Tspace > 150) {
+				topBtnObj.style.display = "block";
+				bottomBtnObj.style.display = "block";
+			} else {
+				topBtnObj.style.display = "none";
+				bottomBtnObj.style.display = "none";
+			}
+		}
+	</script>
+	<!-- End -->
+
+
+	<div id="content">
+
+		<!-- 2021.05.31 Quiz test -->
+		<div class="box">
+			<p id="demo" onmouseover="change1()">demo</p>
+			<button onclick="showarray_531()">Click</button>
+			<button onclick="showrange_531(11,22)">Click</button>
+			<button onclick="showperiod()">Click</button>
+			<p id="show_531">Show</p>
+			<button onclick="greetage2()">Click</button>
+			<button onclick="showrange2_531()">Click</button>
+		</div>
+		<script>
+			function change1() {
+				document.getElementById("demo").innerHTML += showrange(11, 22);
+			}
+			function findmin(p1,p2,p3,p4) {
+				if(p1 < p2 && p1 < p3 && p1 < p4) {
+					return p1;
+				} else if(p2 < p1 && p2 < p3 && p2 < p4) {
+					return p2;
+				} else if(p3 < p1 && p3 < p2 && p3 < p4) {
+					return p3;
+				} else {
+					return p4;
+				}
+			}
+			function showarray_531() {
+				var cars = ['Bmw','Mercedes','Audi','Toyota','Volkswagen'];
+				for(var i in cars) {
+					console.log(cars[i].toLowerCase());
+				}
+			}
+			function showrange(start, end) {
+				for(var i = start; i < end + 1; i++) {
+					return (i);
+				}
+			}
+			function showperiod() {
+				var showObj = document.getElementById("show_531");
+				showObj.innerHTML = showdate();
+			}
+			function showdate() {
+				var date = new Date().getDate();
+				switch(date) {
+					case 1:
+					case 2:
+					case 3:
+					case 4:
+					case 5:
+					case 6:
+					case 7:
+					case 8:
+					case 9:
+					case 10:
+						return "It is the beginning of the month";
+						break;
+					case 11:
+					case 12:
+					case 13:
+					case 14:
+					case 15:
+					case 16:
+					case 17:
+					case 18:
+					case 19:
+					case 20:
+						return "It is the middle of the month";
+						break;
+					case 21:
+					case 22:
+					case 23:
+					case 24:
+					case 25:
+					case 26:
+					case 27:
+					case 28:
+					case 29:
+					case 30:
+					case 31:
+						return "It is the end of the month";
+						break;
+				}
+			}
+			function greetage2() {
+				var age = prompt("Enter your age here:");
+				if(age < 18) {
+					alert("you are too young");
+				} else if (age >= 18 && age <= 30) {
+					alert("right on");
+				} else if(age > 30) {
+					alert("old enough");
+				}
+			}
+			function showrange2_531() {
+				var i = 100;
+				do {
+					console.log(i);
+					i--;
+				}
+				while(i > -1);
+			}
+			function oddeven(num) {
+				if(num%2 == 0) {
+					return "this is an even number";
+				} else {
+					return "this is an odd number";
+				}
+			}
+		</script>
+
+
+		<!-- 2021.05.22 转盘抽奖-->
+		<div class="box">
+			<div>
+				<div id="turnplate"></div>
+				<p id="turnarrow">↑</p>
+			</div>
+			<button onclick="turnround()">Run</button>
+		</div>
+		<script type="text/javascript">
+			var TRtimer, TRtimer2, TRstatus = true, degree = 360, degcount = 7, degi = 0, degii = 0;
+			var turnplateObj = document.getElementById("turnplate");
+
+			function turnround() {
+				if(TRstatus == true) {
+					cancelAnimationFrame(TRtimer);
+					TRtimer = requestAnimationFrame(turnrunning);
+					TRstatus = false;
+				} else {
+					cancelAnimationFrame(TRtimer);
+					cancelAnimationFrame(TRtimer2);
+					TRtimer2 = requestAnimationFrame(turnstopping);
+					TRstatus = true;
+				}
+			}
+			function turnrunning() {
+				degcount = 7;
+				degi = 0;
+				degii = 0;
+
+				degree -= degcount;
+				turnplateObj.style.transform = "rotate(" + degree + "deg)";
+				turnplateObj.style.transition = "none";
+
+				if(TRstatus == false) {
+					TRtimer = requestAnimationFrame(turnrunning);
+				}
+				if(degree <= 0 ) {
+					degree = 360;
+				}
+			}
+			function turnstopping() {
+				var n, speed = 20;
+				if(degree <= 0 ) {
+					degree = 360;
+				}
+				degree -= degcount;
+				turnplateObj.style.transform = "rotate(" + degree + "deg)";
+				// turnplateObj.style.transition = "1s";
+				if(TRstatus == true) {
+					TRtimer2 = requestAnimationFrame(turnstopping);
+				}
+				if(degi > speed) {
+					degcount -= 1;
+					degi = 0;
+				}
+				if(degii > 4) {speed = 50;}
+				else if(degii > 6) {speed = 100;}
+				else {degii++;}
+
+				degi++;
+				var compare = Math.abs(degree%36 - 18);
+				if (degcount < 0) {
+					if(compare >= 12) {n = 6;}
+					else if(compare >= 8 || compare < 12) {n = 4;}
+					else if(compare >= 4 || compare < 8) {n = 2;}
+					else if(compare >= 0 || compare < 4) {n = 1;}
+
+					if(degree%36 < 18) {
+						degree += 18 - degree%36;
+						console.log(degree+"+");
+					} else if (degree%36 > 18) {
+						degree -= degree%36 - 18;
+						console.log(degree+"-");
+					}
+					turnplateObj.style.transform = "rotate(" + degree + "deg)";
+					turnplateObj.style.transition = n + "s";
+					cancelAnimationFrame(TRtimer2);
+				}
+			}
+		</script>
+
+
+		<!-- 2021.05.28 Class -->
+		<div class="box">
+			<button onclick="practice1_528()">Click</button>
+			<button onclick="practice2_528()">Click</button>
+			<button onclick="practice3_528()">Click</button>
+		</div>
+		<script type="text/javascript">
+			function practice1_528() {
+				var car = ['a','b','c','d','e'];
+				var i = 0;
+				while(i < car.length) {
+					console.log(car[i]);
+					i++;
+				}
+			}
+			function practice2_528() {
+				var i = 0;
+				do {
+					console.log(i);
+					i++;
+				}
+				while (i < 11);
+			}
+			function practice3_528() {
+				var array = ["apple","cherry","pear","watermelon","pineapple"];
+				var i;
+				for(i = 0; i < array.length; i++) {
+					if(i == 2) {
+						continue;
+					}
+					console.log(array[i])
+				}
+			}
+		</script>
+
+
+		<!-- 2021.05.27 Class -->
+		<div class="box">
+			<input type="text" id="namecheck" onchange="checksystem2()">
+			<input type="text" id="passwordcheck">
+			<button onclick="checksystem()">Check</button>
+			<hr>
+			<button onclick="showarray_527()">Show</button>
+			<p id="show_527">Cars:</p>
+			<hr>
+			<button onclick="charscount()">Count</button>
+			<p id="show2_527">Numbers of characters:</p>
+			<hr>
+			<button onclick="showarray2_527()">Show</button>
+			<p id="show3_527">Cars:</p>
+		</div>
+		<script type="text/javascript">
+			function checksystem() {
+				var name = prompt("What's your name?");
+				var password = "abc";
+
+				if(name == null) {
+					return;
+				}
+				switch(name) {
+					case "Tony":
+					case "tony":
+					case "Joe":
+					case "joe":
+					case "Tom":
+					case "tom":
+						alert(password);
+						break;
+					default:
+						alert("You are not authorized to the system!");
+				}
+			}
+			function checksystem2() {
+				var namecheckObj = document.getElementById("namecheck");
+				var name = namecheckObj.value;
+				var t = "T" || "t" || "To" || "to";
+				var Tsearch = name.search(t);
+				var j = "J" || "j" || "Jo" || "jo";
+				var Jsearch = name.search(j);
+			}
+			function showarray_527() {
+				var cars = ["mercedes","audi","toyota","honda","bmw"];
+				var showObj = document.getElementById("show_527");
+				var i;
+				showObj.innerHTML = "Cars:|"
+				for(i = 0; i < cars.length; i++) {
+					showObj.innerHTML += cars[i].toUpperCase() + "|";
+					console.log(cars[i].toUpperCase());
+				}
+			}
+			function charscount() {
+				var cars = ["mercedes","audi","toyota","honda","bmw"];
+				var showObj = document.getElementById("show2_527");
+				var i;
+				showObj.innerHTML += "|"
+				for(i in cars) {
+					showObj.innerHTML += cars[i].length + "|";
+					console.log(cars[i].length);
+				}
+			}
+			function showarray2_527() {
+				var cars = ["mercedes","audi","toyota","honda","bmw"];
+				var showObj = document.getElementById("show3_527");
+				var i = 0;
+				showObj.innerHTML += "|"
+				while(i < cars.length) {
+					showObj.innerHTML += cars[i] + "|";
+					console.log(cars[i]);
+					i++;
+				}
+			}
+		</script>
+
+		<!-- 2021.05.26 Class -->
+		<div class="box">
+			<button onclick="rpsgame()">RPS (1)</button>
+			<button onclick="rpsgame2()">RPS (2)</button>
+			<button onclick="rpsgame3()">RPS (3)</button>
+			<p>Computer vs. Human</p>
+			<p id="show3_526">Rock Paper Scissors</p>
+			<hr>
+			<p>Set a month(1-12)</p>
+			<input type="text" id="monthtext_526">
+			<button onclick="groupseason()">Group months to season</button>
+			<button onclick="groupseason0()">Default</button>
+			<p id="show_526">Season</p>
+			<p id="show2_526">Month</p>
+			<hr>
+			<button onclick="fruitloop()">Fruit</button>
+		</div>
+		<script type="text/javascript">
+			function rpsgame() {
+				var showObj = document.getElementById("show3_526");
+				var computer = Math.floor(Math.random() * 3);
+				// 0 = rock, 1 = paper, 2 = scissor
+				var array = ["Draw!","You win!","You lose!"];
+				var array2 = ["rock","paper","scissor"];
+				var ans;
+				if(computer == 3) {
+					rpsgame();
+				} else {
+					var man = prompt("Enter your choice(Rock Paper Scissor):");
+					
+					if(man == "Rock" || man == "rock") {
+						if(computer == 0) {ans = 0;}
+						else if(computer == 1) {ans = 2;}
+						else if(computer == 2) {ans = 1;}
+					} else if(man == "Paper" || man == "paper") {
+						if(computer == 0) {ans = 1;}
+						else if(computer == 1) {ans = 0;}
+						else if(computer == 2) {ans = 2;}
+					} else if(man == "Scissor" || man == "scissor") {
+						if(computer == 0) {ans = 2;}
+						else if(computer == 1) {ans = 1;}
+						else if(computer == 2) {ans = 0;}
+					}
+
+					console.log(array2[computer] + " vs. " + man);
+					alert(array[ans]);
+					showObj.innerHTML = array[ans] + " (" + array2[computer] + " vs. " + man + ")";
+				}
+			}
+			function rpsgame2() {
+				var showObj = document.getElementById("show3_526");
+				var com = Math.floor(Math.random() * 3);
+				// 0 = rock, 1 = paper, 2 = scissor
+				console.log(com);
+				var man = prompt("Enter your choice(Rock Paper Scissor):");
+				var array = ["Draw!","You win!","You lose!"];
+				var array2 = ["rock","paper","scissor"];
+				var res, ans;
+				if(com != 3) {
+					if(man == "Rock" || man == "rock") {res = 0;}
+					else if(man == "Paper" || man == "paper") {res = 1;}
+					else if(man == "Scissor" || man == "scissor") {res = 2;}
+
+					compare = Math.abs(com - res);
+
+					if(com == res) {ans = 0;}
+					else if(compare == 1) {
+						if(com > res) {ans = 2;}
+						else {ans = 1;}
+					} else if(compare == 2){
+						if(com > res) {ans = 1;}
+						else {ans = 2;}
+					}
+					console.log(array2[com] + " vs. " + man);
+					console.log(array[ans]);
+					alert(array[ans]);
+					showObj.innerHTML = array[ans] + " (" + array2[com] + " vs. " + man + ")";
+				} else {
+					rpsgame2();
+				}
+			}
+			function rpsgame3() {
+				var showObj = document.getElementById("show3_526");
+				var com = Math.floor(Math.random() * 3);  // 0 = rock, 1 = paper, 2 = scissor
+				console.log(com);
+				var choice = prompt("Enter your choice(Rock Paper Scissor):");
+				var array = ["rock","paper","scissor"];
+				var array2 = ["Draw!","You win!","You lose!"];
+				var draw = [4, 9, 18];
+				var win = [8, 17, 6];
+				var lose = [16, 5, 10];
+				var ans, man;
+
+				console.log(array[com] + " vs. " + man);
+
+				if(choice == "Rock" || choice == "rock") {man = 4;}
+				else if(choice == "Paper" || choice == "paper") {man = 8;}
+				else if(choice == "Scissor" || choice == "scissor") {man = 16;}
+
+				var res = com + man;
+
+				if(draw.includes(res)) {
+					alert("Draw!");
+					ans = 0;
+				} else if(win.includes(res)) {
+					alert("You win!");
+					ans = 1;
+				} else if(lose.includes(res)) {
+					alert("You lose!");
+					ans = 2;
+				}
+				showObj.innerHTML = array2[ans] + " (" + array[com] + " vs. " + choice + ")";
+			}
+			function groupseason() {
+				var month = new Date().getMonth();
+				var showObj = document.getElementById("show_526");
+				var showObj2 = document.getElementById("show2_526");
+				var monthObj = document.getElementById("monthtext_526");
+				var array = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+				if(monthObj.value != "") {
+					if(isNaN(monthObj.value) == false) {
+						if(monthObj.value > 0 && monthObj.value < 13) {
+							month = monthObj.value * 1 - 1;
+						} else {
+							monthObj.value = month + 1;
+						}
+					} else {
+						monthObj.value = "";
+					}
+				}
+				switch(month) {
+					case 1:
+					case 2:
+					case 3:
+					case 4:
+						showObj.innerHTML = "Spring";
+						break;
+					case 5:
+					case 6:
+					case 7:
+						showObj.innerHTML = "Summer";
+						break;
+					case 8:
+					case 9:
+					case 10:
+						showObj.innerHTML = "Fall";
+						break;
+					default:
+						showObj.innerHTML = "Winter";
+						break;
+				}
+				showObj2.innerHTML = array[month];
+			}
+			function fruitloop() {
+				var fruits = ["apple","banana","cherry","watermelon"];
+				for(i = 0; i < fruits.length; i++){
+					console.log(fruits[i]);
+				}
+			}
+		</script>
+
+		<!-- 2021.05.25 Class -->
+		<div class="box">
+			<button onclick="Intnumber1_525()">Int1</button>
+			<button onclick="Intnumber2_525()">Int2</button>
+			<button onclick="Intnumber3_525()">Int3</button>
+			<br><br>
+			<input type="text" id="text1_525" class="textclassFC">
+			<select id="text2_525">
+				<option>+</option>
+				<option>-</option>
+				<option>*</option>
+				<option>/</option>
+			</select>
+			<input type="text" id="text3_525" class="textclassFC">
+			<button onclick="calcshow_525()">Calculate</button>
+			<p id="show_525">Result</p>
+			<br>
+			<input type="text" name="">
+		</div>
+		<script type="text/javascript">
+			function Intnumber1_525() {
+				var int = Math.round(Math.random() * 5) + 5;
+				console.log(int);
+			}
+			function Intnumber2_525() {
+				var int = Math.floor(Math.random() * 6) + 5;
+				console.log(int);
+			}
+			function Intnumber3_525() {
+				var int = Math.ceil(Math.random() * 6) + 4;
+				console.log(int);
+			}
+			function calcshow_525() {
+				var showObj = document.getElementById("show_525");
+				showObj.innerHTML = calculate_525();
+			}
+			function calculate_525() {
+				var text1Obj = document.getElementById("text1_525");
+				var text2Obj = document.getElementById("text2_525");
+				var text3Obj = document.getElementById("text3_525");
+				var num1 = text1Obj.value * 1;
+				var num2 = text3Obj.value * 1;
+
+				if(text2Obj.options[0].selected) {
+					return num1 + num2;
+				} else if(text2Obj.options[1].selected) {
+					return num1 - num2;
+				} else if(text2Obj.options[2].selected) {
+					return num1 * num2;
+				} else if(text2Obj.options[3].selected) {
+					return num1 / num2;
+				}
+			}
+			function getmax(p1,p2,p3) {
+				return Math.max(p1,p2,p3);
+			}
+			function getmax2(p1,p2,p3) {
+				var max = p1;
+				if(p1 < p2) {
+					max = p2;
+					if(p2 < p3) {
+						max = p3;
+					}
+				} else if(p1 < p3) {
+					max = p3;
+				}
+				return max;
+			}
+		</script>
+
+
+		<!-- 2021.05.21 Class -->
+		<div class="box">
+			<h4>2021.05.21 Class</h4>
+			<button onclick="namepick()">Pick a name</button>
+			<p id="show_521">Show</p>
+			<p id="show2_521">Number</p>
+			<br>
+			<button onclick="agestate()">Get age statement</button>
+			<p id="show3_521">The sentence</p>
+		</div>
+		<script type="text/javascript">
+			var name;
+			function namepick() {
+				var showObj = document.getElementById("show_521");
+				var show2Obj = document.getElementById("show2_521");
+				var array = ["Han","Yolanda","Nancy","Fincher","Crane"];
+
+				var old = array[name];
+				name = Math.round(Math.random() * 4);
+				var fresh = array[name];
+
+				if(old == fresh) {
+					namepick();
+				} else {
+					showObj.innerHTML = array[name];
+					show2Obj.innerHTML = name;
+				}				
+			}
+			function agestate() {
+				var age = prompt("Enter your age:");
+				var show3Obj = document.getElementById("show3_521");
+
+				if(age <= 18) {
+					show3Obj.innerHTML = "You are still young." + "(" + age + ")";
+					alert("You are still young.");
+				} else if(age > 18) {
+					show3Obj.innerHTML = "You are too old." + "(" + age + ")";
+					alert("You are too old.");
+				}
+			}
+		</script>
+
+
+		<div class="box">
+			<!-- 2021.05.20 Class -->
+			<h4>2021.05.20 Class</h4>
+			<button onclick="greetDay()">Greet with day</button>
+			<button onclick="greetYear()">Greet with year</button>
+			<br>
+			<input type="text" id="min_520" value="min">
+			<input type="text" id="max_520" value="max">
+			<button onclick="numberrandom()">Random</button>
+			<p id="show_520">Show</p>
+			<hr>
+
+			<!-- 2021.05.19 Class -->
+			<h4>2021.05.19 Class</h4>
+			<input type="text" id="abctest" onkeydown="abc()">
+			<button onclick="dateshow()">click</button>
+			<p id="demo519">show</p>
+		</div>
+		<script type="text/javascript">
+			// 2021.05.20 Class
+			function greetDay() {
+				var day = new Date().getDay();
+				var array = ["Sunday","Monday","Tuseday","Wednesday","Thursday","Friday","Saturday"];
+				day = array[day];
+				alert("Happy " + day + "!");
+				// 也可以用switch或if else，但是没这个 *精简*
+			}
+			function greetYear() {
+				var year = new Date().getFullYear();
+				alert("Happy " + year + "!");
+			}
+			function numberrandom1() {
+				var showObj = document.getElementById("show_520");
+				var maxObj = document.getElementById("max_520");
+				var minObj = document.getElementById("min_520");
+				var max = parseInt(maxObj.value);
+				var min = parseInt(minObj.value);
+
+				if(isNaN(min) || isNaN(max)) {
+					alert("Please enter valid numbers!")
+				} else {
+					showObj.innerHTML = Math.round(Math.random() * (max-min)) + min;
+
+				}
+			}
+			function numberrandom0(min,max) {
+				console.log(Math.round(Math.random() * (max-min)) + min);
+			}
+
+			// 2021.05.19 Class
+			function dateshow() {
+				var demo519Obj = document.getElementById("demo519");
+				demo519Obj.innerHTML = Date();
+			}
+			function abc() {
+				var abctestObj = document.getElementById("abctest");
+				var abc = typeof abctestObj.value;
+				if(abc == "number") {
+					// return false;
+					// alert(1);
+					console.log(true);
+				} else {
+					console.log(false);
+				}
+			}
+			function practice1_519() {
+				var name = prompt("Your name:");
+				alert("Hello " + name + "!");
+				console.log("Hello " + name + "!");
+			}
+			function practice2_519() {
+				var a = parseInt(prompt("Enter first number:"));
+				var b = parseInt(prompt("Enter second number:"));
+				console.log(a);
+				console.log(b);
+				console.log(a + "+" + b);
+				// return a + "+" + b + "=" + (a + b);
+				return a + b;
+			}
+
+			// 2021.05.18 Class
+			function greet() {
+				console.log("Hello " + name + ", good morning!")
+			}
+			function TAcalc(p1,p2) {
+				console.log(p1 * p2 / 2);
+			}
+			function Areturn(array) {
+				return array[0];
+			}
+			function promptPrct() {
+				var a = prompt("Your name:");
+				alert("Hello " + a + "!");
+			}
+		</script>
+
+
+		<!-- 2021.05.17 Class -->
+		<!-- 2021.05.18 + FC互通计算^_^ -->
+		<div class="box">
+			<p id="classP1">Class Practice</p>
+			<input type="text" id="textclass1">
+			<button onclick="refreshC1()">Refresh</button>
+			<button onclick="call()">Call</button>
+			<button onclick="FCcalc()">F to C</button>
+			<br>
+			<br>
+			<select onchange="FCchange()" id="FCorder">
+				<option name="Type">Type</option>
+				<option name="FtoC">F to C</option>
+				<option name="CtoF">C to F</option>
+			</select>
+			<input type="text" id="textclass2F" class="textclassFC" value="F">
+			<label id="FCarrow">←→</label>
+			<input type="text" id="textclass2C" class="textclassFC" value="C">
+			<button onclick="FCcalc2()">Calculate</button>
+
+		</div>
+		<script type="text/javascript">
+			var textCls1Obj = document.getElementById("textclass1");
+			var classP1Obj = document.getElementById("classP1");
+			var FCtype = "none";
+
+			function refreshC1() {
+				classP1Obj.innerHTML = "Class Practice";
+			}
+			function call() {
+				classP1Obj.innerHTML = "Hello" + " " + textCls1Obj.value + "!";
+			}
+			function FCcalc() {
+				classP1Obj.innerHTML = count();
+				function count() {
+					C = (textCls1Obj.value - 32) * 5/9;
+					return C + "°C";
+				}
+			}
+			function FCchange() {
+				var FCorderObj = document.getElementById("FCorder");
+				var FCarrowObj = document.getElementById("FCarrow");
+				if(FCorderObj.options[0].selected) {
+					FCarrowObj.innerHTML = "←→";
+					FCtype = "none";
+				} else if(FCorderObj.options[1].selected) {
+					FCarrowObj.innerHTML = "—→";
+					FCtype = "FC";
+				} else if(FCorderObj.options[2].selected) {
+					FCarrowObj.innerHTML = "←—";
+					FCtype = "CF";
+				}
+			}
+			function FCcalc2() {
+				var textCls2FObj = document.getElementById("textclass2F");
+				var textCls2CObj = document.getElementById("textclass2C");
+				if(FCtype == "FC") {
+					textCls2CObj.value = (textCls2FObj.value - 32) * 5/9 + "°C";
+				} else if(FCtype == "CF") {
+					textCls2FObj.value = 32 + textCls2CObj.value * 5/9 + "°F";
+				} else {
+					textCls2FObj.value = "F";
+					textCls2CObj.value = "C";
+				}
+			}
+
+		</script>
+
+
+		<!-- 2021.05.16 抽奖实验 -->
+		<div class="box">
+			<div id="lotteryBoxArea">
+				<div class="lotteryBox" name="lotteryBoxs">
+					<!-- <img src="想爱.jpg" class="lotteryImg"> -->
+					<p>Present 1</p>
+				</div>
+				<div class="lotteryBox" name="lotteryBoxs">
+					<!-- <img src="想爱.jpg" class="lotteryImg"> -->
+					<p>Present 2</p>
+				</div>
+				<div class="lotteryBox" name="lotteryBoxs">
+					<!-- <img src="想爱.jpg" class="lotteryImg"> -->
+					<p>Present 3</p>
+				</div>
+				<div class="lotteryBox" name="lotteryBoxs">
+					<img src="想爱.jpg" class="lotteryImg">
+					<p>Present 8</p>
+				</div>
+				<div id="lotteryBoxM">
+					<button id="lotteryMBtn" onclick="drawlot()">Draw lottery</button>
+				</div>
+				<div class="lotteryBox" name="lotteryBoxs">
+					<img src="想爱.jpg" class="lotteryImg">
+				</div>
+				<div class="lotteryBox" name="lotteryBoxs">
+					<img src="想爱.jpg" class="lotteryImg">
+				</div>
+				<div class="lotteryBox" name="lotteryBoxs">
+					<img src="想爱.jpg" class="lotteryImg">
+				</div>
+				<div class="lotteryBox" name="lotteryBoxs">
+					<img src="想爱.jpg" class="lotteryImg">
+				</div>
+			</div>
+			<button id="lotteryBtn" onclick="drawlot()">Click to draw lottery</button>
+			<p id="text0">Test</p>
+			<audio src="start.mp3" id="startaudio" loop="loop">Your browser does not support the audio element.</audio>
+			<audio src="stop.mp3" id="stopaudio">Your browser does not support the audio element.</audio>
+		</div>
+		<script type="text/javascript">
+			var Dtimer, Dstatus = true;
+			var startaudioObj = document.getElementById("startaudio");
+			var stopaudioObj = document.getElementById("stopaudio");
+			var lotteryBox2Objs = document.getElementsByClassName("lotteryBox2");
+			Di = 0, Dn = 0;
+
+			function drawlot() {
+				
+				if(Dstatus === true) {
+					clearInterval(Dtimer);
+					stopaudioObj.pause()
+					startaudioObj.play();
+					Dtimer = setInterval(lotrandom, 170);
+					Dstatus = false;
+				} else {
+					startaudioObj.pause();
+					stopaudioObj.play();
+					clearInterval(Dtimer);
+					Dstatus = true;
+					Di = Di%8;
+					Dn = Di;
+					// if(Di == 0) {text0.innerHTML = 8;} 
+					// else {text0.innerHTML = Di;}
+					text0.innerHTML = "恭喜您获得" + lotteryBox2Objs[0].innerHTML + "一份！";
+				}
+			}
+			function lotrandom() {
+				var lotteryBoxsObjs = document.getElementsByName("lotteryBoxs");
+				var round = Math.round(Math.random()*5 + 17) + Dn;
+
+				switch(Di%8) {
+					case 0:
+						lotteryBoxsObjs[3].className = "lotteryBox";
+						lotteryBoxsObjs[0].className = "lotteryBox2";
+						break;
+					case 1:
+						lotteryBoxsObjs[0].className = "lotteryBox";
+						lotteryBoxsObjs[1].className = "lotteryBox2";
+						break;
+					case 2:
+						lotteryBoxsObjs[1].className = "lotteryBox";
+						lotteryBoxsObjs[2].className = "lotteryBox2";
+						break;
+					case 3:
+						lotteryBoxsObjs[2].className = "lotteryBox";
+						lotteryBoxsObjs[4].className = "lotteryBox2";
+						break;
+					case 4:
+						lotteryBoxsObjs[4].className = "lotteryBox";
+						lotteryBoxsObjs[7].className = "lotteryBox2";
+						break;
+					case 5:
+						lotteryBoxsObjs[7].className = "lotteryBox";
+						lotteryBoxsObjs[6].className = "lotteryBox2";
+						break;
+					case 6:
+						lotteryBoxsObjs[6].className = "lotteryBox";
+						lotteryBoxsObjs[5].className = "lotteryBox2";
+						break;
+					case 7:
+						lotteryBoxsObjs[5].className = "lotteryBox";
+						lotteryBoxsObjs[3].className = "lotteryBox2";
+						break;
+				} Di++;
+				if(Di > round) {
+					startaudio.pause();
+					stopaudioObj.play();
+					clearInterval(Dtimer);
+					Dstatus = true;
+					Di = Di%8;
+					Dn = Di;
+					// if(Di == 0) {text0.innerHTML = 8;} 
+					// else {text0.innerHTML = Di;}
+					text0.innerHTML = "恭喜您获得" + lotteryBox2Objs[0].innerHTML + "一份！";
+				} 
+			}
+		</script>
+
+
+		<!-- 2021.05.15 收起展开实验 -->
+		<div class="box">
+			<div id="PTtitle">
+				<h3>Protoss and Protoss World</h3>
+				<button id="updownBtn" onclick="updown()" onmouseover="choose()" onmouseout="leave()">↓</button>
+			</div>
+			<table id="Ptable" colpadding="5">
+				<tr>
+					<th>Leader</th>
+					<td colspan="4">King of Protoss</td>
+				</tr>
+				<tr>
+					<th>Zodiac</th>
+					<td>Leo(Loki)</td>
+					<td>Virgo</td>
+					<td>Libra</td>
+					<td>Scorpio</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>Sagittarius</td>
+					<td>Capricorn</td>
+					<td>Aquarius</td>
+					<td>Pisces</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>Aries</td>
+					<td>Taurus</td>
+					<td>Gemini</td>
+					<td>Cancer</td>
+				</tr>
+				<tr>
+					<th>Others</th>
+					<td>Nicola(Peru)</td>
+					<td>Horologium</td>
+					<td>Crucis</td>
+					<td>Lyra</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>Caelum</td>
+					<td>Denif</td>
+					<td colspan="2"></td>
+				</tr>
+			</table>
+		</div>
+		<script>
+			var updownBtnObj = document.getElementById("updownBtn");
+			var PtableObj = document.getElementById("Ptable");
+			var PTstatus = true;
+
+			function choose() {
+				updownBtnObj.style.border = "1px solid blue";
+				updownBtnObj.style.padding = "0 5px";
+			}
+			function leave() {
+				updownBtnObj.style.border = "none";
+				updownBtnObj.style.padding = "1px 6px";
+			}
+			function updown() {
+				if(PTstatus === true) {
+					PTstatus = false;
+					PtableObj.style.display = "table";
+					updownBtnObj.innerHTML = "↑";
+				} else {
+					PtableObj.style.display = "none";
+					updownBtnObj.innerHTML = "↓";
+					PTstatus = true;
+				}
+			}
+		</script>
+
+
+		<!-- 2021.05.15 多引擎搜索栏 -->
+		<div class="box">
+			<form method="GET" target="_blank" id="search2" action="http://www.google.com/search">
+				<select id="searchOps" onchange="Schange()">
+					<option name="Soptions">Google</option>
+					<option name="Soptions">Baidu</option>
+					<option name="Soptions">Bing</option>
+					<option name="Soptions">360</option>
+					<option name="Soptions">Sogou</option>
+				</select>
+				<input type="text" name="q" id="searchText">
+				<input type="submit" value="Google" id="searchBtn">
+			</form>
+		</div>
+		<script>
+			function Schange() {
+				var searchBtnObj = document.getElementById("searchBtn");
+				var searchOpsObj = document.getElementById("searchOps");
+				var searchTextObj = document.getElementById("searchText");
+				var searchObj = document.getElementById("search2");
+				if(searchOps.options[0].selected) {
+					searchBtnObj.value = "Google";
+					searchBtnObj.style.backgroundColor = "darkmagenta";
+					searchTextObj.name = "q";
+					searchObj.action = "http://www.google.com/search";
+				} else if(searchOps.options[1].selected) {
+					searchBtnObj.value = "Baidu";
+					searchBtnObj.style.backgroundColor = "blue";
+					searchTextObj.name = "wd";
+					searchObj.action = "https://www.baidu.com/s"
+				} else if(searchOps.options[2].selected) {
+					searchBtnObj.value = "Bing";
+					searchBtnObj.style.backgroundColor = "#317ef3";
+					searchTextObj.name = "q";
+					searchObj.action = "https://cn.bing.com/search";
+				} else if(searchOps.options[3].selected) {
+					searchBtnObj.value = "360";
+					searchBtnObj.style.backgroundColor = "#19b955";
+					searchTextObj.name = "q";
+					searchObj.action = "https://www.so.com/s";
+				} else if(searchOps.options[4].selected) {
+					searchBtnObj.value = "Sogou";
+					searchBtnObj.style.backgroundColor = "#fd6853";
+					searchTextObj.name = "query";
+					searchObj.action = "https://www.sogou.com/web"
+				}
+			}
+		</script>
+
+
+		<!-- 2021.05.11 Class 灯泡-->
+		<div class="box">
+			<button onclick="appearOF()">Click to show first and then turn on and off</button>
+			<button onclick="onoff()">Click to turn on and off</button>
+			<button onclick="disappear()">Click to hide and show the bulb</button>
+			<img id="Ionoff" src="https://toppng.com/uploads/preview/light-bulb-on-off-png-11553940208oq66nq8jew.png">
+			<!-- <p id="classwrite"></p> -->
+		</div>
+		<script>
+			// document.getElementById("classwrite").innerHTML = 1+2;
+			// document.write(1+2);
+
+			// Turn the bulb light on and off
+			function onoff() {
+				var onoffObj = document.getElementById("Ionoff");
+				let light = onoffObj.src;
+				let appear = onoffObj.style.display;
+				if(appear == "" || appear === "none") {
+					onoffObj.style.display = "block";
+				} else if(light === "https://toppng.com/uploads/preview/light-bulb-on-off-png-11553940208oq66nq8jew.png") {
+					onoffObj.src = "https://toppng.com/uploads/preview/light-bulb-on-off-png-11553940319kdxsp3rf0i.png";
+				} else {
+					onoffObj.src = "https://toppng.com/uploads/preview/light-bulb-on-off-png-11553940208oq66nq8jew.png";
+
+				}
+			}
+			// show and hide the bulb
+			function disappear() {
+				var disappearObj = document.getElementById("Ionoff")
+				let disappear = disappearObj.style.display
+				if(disappear == "" || disappear === "none") {
+					disappearObj.style.display = "block";
+				} else {
+					disappearObj.style.display = "none";
+				}
+			}
+			// Appear first and then on and off
+			ai=0;
+			function appearOF() {
+				var apponoffObj = document.getElementById("Ionoff");
+				if(ai%3 === 0) {
+					apponoffObj.style.display = "block";
+					apponoffObj.src = "https://toppng.com/uploads/preview/light-bulb-on-off-png-11553940208oq66nq8jew.png";
+				} else if(ai%3 === 1) {
+					apponoffObj.src = "https://toppng.com/uploads/preview/light-bulb-on-off-png-11553940319kdxsp3rf0i.png";
+				} else {
+					apponoffObj.style.display = "none";
+				}
+				ai++;
+			}
+		</script>
+
+
+		<!-- 2021.05.11 无限 else if 实验 -->
+		<div class="box">
+			<p id="demo">Else if test</p>
+			<button onclick="infiniteEI()">Click to test</button>
+			<p id="infiniteEIS">show</p>
+		</div>
+		<script>
+			// Infinite Else If Test
+			function infiniteEI() {
+				var infiniteEIObj = document.getElementById("infiniteEIS");
+				let eitext = infiniteEIObj.style.fontSize;
+
+				if(eitext == "" || eitext === "10px") {
+					infiniteEIObj.style.fontSize = "16px";
+					infiniteEIObj.style.backgroundColor = "lightgoldenrodyellow";
+					infiniteEIObj.innerHTML = "16px lightgoldenrodyellow";
+				} else if(eitext === "16px") {
+					infiniteEIObj.style.fontSize = "28px";
+					infiniteEIObj.style.backgroundColor = "white";
+					infiniteEIObj.innerHTML = "28px white";
+				} else if(eitext === "28px") {
+					infiniteEIObj.style.fontSize = "40px";
+					infiniteEIObj.style.backgroundColor = "darkgoldenrod";
+					infiniteEIObj.innerHTML = "40px darkgoldenrod";
+				} else {
+					infiniteEIObj.style.fontSize = "10px";
+					infiniteEIObj.style.backgroundColor = "inherit";
+					infiniteEIObj.innerHTML = "show";
+				}
+			}
+		</script>
+
+
+		<!-- 2021.05.11 输入位数随机数实验 -->
+		<!-- 2021.05.12 + 跑停实验 -->
+		<div class="box">
+			<h2 id="number">Random Number</h2>
+			<label>Enter number for digit capacity to get random number</label>
+			<input type="text" id="Trandom">
+			<button onclick="Textrandom()">Click to have random number</button>
+			<button onclick="running()">Click to run</button>
+			<button onclick="stop()">Click to stop</button><br>
+			<button onclick="runstop()">Click to run and stop</button>
+			<button onclick="runstop2()">Click to run and stop</button>
+		</div>
+		<script>
+			// text random 
+			function Textrandom() {
+				number.innerHTML = randomtext(Trandom.value);
+			}
+			function randomtext(n) {
+				res = Math.round(Math.random() * ((Math.pow(10,n) - 1) - Math.pow(10,n-1))) + Math.pow(10,n-1);
+				return res;
+			}
+
+			// running and stop
+			var timer, ti = 0;
+			var RSstate = true;
+
+			function running() {
+				clearInterval(timer);
+				timer = setInterval(Textrandom, 70);
+			}
+			function stop() {
+				clearInterval(timer);
+			}
+
+			function runstop() {
+				if(ti%2===0) {
+					clearInterval(timer);
+					timer = setInterval(Textrandom, 70);
+				} else {
+					clearInterval(timer);
+				}
+				ti++;
+			}
+			function runstop2() {
+				if(RSstate === true) {
+					RSstate = false;
+					clearInterval(timer);
+					timer = setInterval(Textrandom, 70);
+				} else {
+					clearInterval(timer);
+					RSstate = true;
+				}
+			}
+		</script>
+
+		
+		<!-- 2021.05.11 背景随机变换实验 -->
+		<!-- 2021.05.13 + 跑停实验 -->
+		<div id="BGrandom" class="box">
+			<p>BackGround Random</p>
+			<p id="BGrandomtext">Color Value</p>
+			<button onclick="BGrandomHEX()">Click to change HEX color randomly</button>
+			<button onclick="BGrandomRGB()">Click to change RGB color randomly</button>
+			<button onclick="BGrandomHSL()">Click to change HSL color randomly</button>
+			<br>
+			<input type="radio" name="colorselect"><label>HEX</label>
+			<input type="radio" name="colorselect"><label>RGB</label>
+			<input type="radio" name="colorselect"><label>HSL</label>
+			<button onclick="BGrunstop()" id="RScolor">Running</button>
+			<br>
+			<br>
+			<label>Choose any type of color to get random color.</label><br>
+			<input type="radio" name="colorselect2" onclick="BGrun2()">
+			<label onclick="BGruntext()" name="colortext">HEX</label>
+			<input type="radio" name="colorselect2" onclick="BGrun2()">
+			<label onclick="BGruntext()" name="colortext">RGB</label>
+			<input type="radio" name="colorselect2" onclick="BGrun2()">
+			<label onclick="BGruntext()" name="colortext">HSL</label>
+			<button onclick="BGstop2()" id="RScolor2">Stop</button>
+		</div>
+		<script>
+			// random color HEX
+			function BGrandomHEX() {
+				var BGrandomHEXObj = document.getElementById("BGrandom");
+				BGrandomHEXObj.style.backgroundColor = generateMixed(6);
+				BGrandomtext.innerHTML = generateMixed(6);
+			}
+			function generateMixed(n) {
+				var chars = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
+				var res = "#";
+				var id;
+				for(var i = 0; i < n ; i ++) {
+					id = Math.floor(Math.random()*16);
+					res += chars[id];
+				}
+				return res;
+			};
+
+			// random color RGB
+			function BGrandomRGB() {
+				var BGrandomRGBObj = document.getElementById("BGrandom");
+				BGrandomRGBObj.style.backgroundColor = generateMixed2();
+				BGrandomtext.innerHTML = generateMixed2();
+			}
+			function generateMixed2() {
+				var r = Math.round(Math.random()*255);
+				var g = Math.round(Math.random()*255);
+				var b = Math.round(Math.random()*255);
+				res = "rgb(" + r + "," + g + "," + b +")";
+				return res;
+			}
+
+			// random color HSL
+			function BGrandomHSL() {
+				var BGrandomHSLObj = document.getElementById("BGrandom");
+				BGrandomHSLObj.style.backgroundColor = generateMixed3();
+				BGrandomtext.innerHTML = generateMixed3();
+			}
+			function generateMixed3() {
+				var h = Math.round(Math.random()*359);
+				var s = Math.round(Math.random()*100);
+				var l = Math.round(Math.random()*100);
+				res = "hsl(" + h + "," + s + "%," + l + "%)";
+				return res;
+			}
+
+
+			// Run and stop
+			var BGstate = true;
+			var BGtimer;
+			function BGrunstop() {
+				var colorObjs = document.getElementsByName("colorselect");
+				if(BGstate === true) {
+					if(colorObjs[0].checked) {
+						clearInterval(BGtimer);
+						BGtimer = setInterval(BGrandomHEX, 110);
+					} else if(colorObjs[1].checked) {
+						clearInterval(BGtimer);
+						BGtimer = setInterval(BGrandomRGB, 110);
+					} else if(colorObjs[2].checked) {
+						clearInterval(BGtimer);
+						BGtimer = setInterval(BGrandomHSL, 110);
+					}
+					RScolor.innerHTML = "Stop";
+					BGstate = false;
+				} else {
+					RScolor.innerHTML = "Running";
+					clearInterval(BGtimer);
+					BGstate = true;
+				}
+			}
+
+			// Run and stop 2
+			function BGrun2() {
+				var colorObjs2 = document.getElementsByName("colorselect2");
+				if(colorObjs2[0].checked) {
+					clearInterval(BGtimer);
+					BGtimer = setInterval(BGrandomHEX, 110);
+				} else if(colorObjs2[1].checked) {
+					clearInterval(BGtimer);
+					BGtimer = setInterval(BGrandomRGB, 110);
+				} else if(colorObjs2[2].checked) {
+					clearInterval(BGtimer);
+					BGtimer = setInterval(BGrandomHSL, 110);
+				}
+			}
+			function BGstop2() {
+				clearInterval(BGtimer);
+			}
+			function BGruntext() {
+				var colortextObjs = document.getElementsByName("colortext");
+				colortextObjs[0].addEventListener("click", BGrun2, false);
+			}
+		</script>
+
+
+		<!-- 2021.05.10 变换颜色实验 -->
+		<div class="box">
+			<button onclick="ieremainder()">Click to change in if else remainder</button><br>
+			<button onclick="remainder()">Click to change in remainder</button><br>
+			<button onclick="changeturns()">Click to change color in turns</button><br>
+			<button onclick="change()">Click to change color</button>
+			<p id="colorchange">Color is changing here.</p>
+		</div>
+		<script>
+			// red and blue: if else
+			function change() {
+				let status = colorchange.style.backgroundColor;
+				if(status == ' ' || status === 'red') {
+					colorchange.style.backgroundColor = 'blue'
+				} else {
+					colorchange.style.backgroundColor = 'red'
+				}
+			}
+
+			// red, yellow, blue: switch
+			function changeturns() {
+				// let color = colorchange.style.backgroundColor;
+				// let color = document.getElementById('colorchange').style.backgroundColor;
+				var colorObj = document.getElementById('colorchange');
+				let color = colorObj.style.backgroundColor;
+				switch(color) {
+					case "red":
+						colorObj.style.backgroundColor = "yellow";
+						break;
+					case "yellow":
+						colorObj.style.backgroundColor = "blue";
+						break;
+					default:
+						colorObj.style.backgroundColor = "red";
+				}
+			}
+
+			// red, yellow, blue: switch + i%n, i++
+			ci = 2;
+			function remainder() {
+				var colorObj = document.getElementById('colorchange');
+				let color = colorObj.style.backgroundColor;
+				switch(ci%3) {
+					case 0:
+						colorObj.style.backgroundColor = "yellow";
+						ci++;
+						break;
+					case 1:
+						colorObj.style.backgroundColor = "blue";
+						ci++;
+						break;
+					default:
+						colorObj.style.backgroundColor = "red";
+						ci++;
+				}
+			}
+
+			// red, yellow, blue: i%n, i++
+			function ieremainder() {
+				var colorObj = document.getElementById('colorchange');
+				if(ci%3 === 0) {
+					colorObj.style.backgroundColor = "yellow";
+				} else if(ci%3 === 1) {
+					colorObj.style.backgroundColor = "blue";
+				} else {
+					colorObj.style.backgroundColor = "red";
+				}
+				ci++;
+			}
+		</script>
+
+
+		<!-- 2021.05.07 -->
+		<hr id="cutting">
+		<div id="div1">
+			<p>id="div1", display: block. ashdbshdb.a.a.a.a.a.a.</p>
+		</div>
+
+		<div id="div2">
+			<p>id="div2", display: none</p>
+		</div>
+
+		<div id="div3">
+			<p>id="div3", display: inline</p>
+		</div>
+
+
+		<!-- 2021.04.30 旋转实验 -->
+		<div class="circle">
+			<img src="想爱.jpg">
+		</div>
+		<!-- End -->
+
+
+	
+		<!-- 2021.04.29 -->
+		<input type="color" name="color">
+		<p id="borderimagetest">This is border image test.</p>
+		<!-- End -->
+
+
+		<!-- 2021.04.28 插音频实验 -->
+		<audio src="倒霉死勒 瀚墨 - 愿你（翻自 昼夜）.mp3" controls="controls">Your browser does not support the audio element.</audio>
+		<hr>
+		<!-- End -->
+
+
+		<!-- 2021.04.26 -->
+		<form>
+			<label>First Name:</label>
+			<input type="text" name="fname"><br>
+			<label>Last Name:</label>
+			<input type="text" name="lname"><br>
+
+			<input type="radio" name="man">
+			<label>Man</label>
+			<input type="radio" name="woman">
+			<label>Woman</label><br>
+
+			<label>Birthday:</label>
+			<input type="date" name="birthday"><br>
+
+			<label>Have Disease or not:</label><br>
+			<input type="checkbox" name="heart">
+			<label>Serious disease</label>
+			<input type="checkbox" name="infectious">
+			<label>Infectious disease</label><br>
+			<input type="checkbox" name="chronic">
+			<label>Chronic disease</label>
+			<input type="checkbox" name="nodisease">
+			<label>Not have disease</label><br>
+
+			<label>Job prefer:</label>
+			<select>
+				<option value="choose">Please choose your job type</option>
+				<option value="teacher">Teacher</option>
+				<option value="doctor">School doctor</option>
+				<option value="supervisor">Supervisor of dorm</option>
+				<option value="cleaner">Cleaner</option>
+			</select><br>
+
+			<label>Your Introduction:</label><br>
+			<textarea rows="5" cols="40" name="comment">Please leave your information here...</textarea>
+
+			<input type="range" name="range" id="range" min="1" max="100" value="50"><br>
+
+			<input type="button" name="button" value="input button" onclick="Falert('这是一个input button')">
+			
+			<br>
+			<input type="submit" name="submit" style="position: relative; left: 95px;"  onclick="Falert('Thankyou for your involvement!')">
+			<input type="reset" name="reset" style="position: relative; left: 145px;">
+		</form>
+		<hr>
+		<!-- End -->
+
+
+		<!-- 2021.04.21 -->
+		<del>Delete（删除线）</del><br>
+		<sub>Subscript text（下标）</sub><br>
+		<sup>Superscript text（上标）</sup><br>
+		<ins>Inserted Text（下划线）</ins><br>
+		<mark>Marked Text（高光标记）</mark><br>
+
+		<blockquote>Has indentation and use for independent paragraph（引用）</blockquote>
+		<q>No indentstion and for single sentences（引用）</q><br>
+		<abbr title="Abbreviation">Abbr（缩写）</abbr><br>
+		<cite>Cite: Define the title of a creative work (book, song movie</cite><br>
+
+		<!-- Comments -->
+
+		<iframe width="640" height="450" src="//player.bilibili.com/player.html?aid=757734673&bvid=BV1w64y1U7kj&cid=327292991&page=1" scrolling="yes" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe><hr>
+		<p>Youtube视频的大小是600*400</p>
+		<!-- End -->
+
+		<form>
+			<select>
+			<option value="option1">Option 1</option>
+			<option value="option2">Option 2</option>
+			<option value="option3">Option 3</option>
+			</select><br>
+			<textarea row="5" cols="50" style="resize: vertical;" onblur="alert(this.value)"></textarea><br>
+			<input type="date" name="date">
+		</form>
+		<form>
+			<input type="submit" name="submit" onclick="Falert(.value)">
+		</form>
+		<p style="background-color: rgb(125, 250, 100)">Text</p>
+		<!-- <a href="https://www.baidu.com/link?url=u2Mq3LhcGPhxeF7gQM4_xNNX6HFj6ZCbVEY-WMfAPek2CsrGkXMebzCF8dHiK3E9gKjgwS0I8O9lyBghqSLGg5SuSy5bS8Jl2Ul9SrDCQ1FF47RJvN0R_3rTe-BZP2NBO0iRHfKeaBqZv7_TD0-QNq&wd=&eqid=f464b1d400013f2400000003607fe576"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201804%2F05%2F20180405211254_cmx4e.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1621579176&t=6def845828872dac62fde6213d9f6ecb" width="400px"></a> -->
+	</div>
+</body>
+</html>
