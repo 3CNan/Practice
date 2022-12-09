@@ -2,7 +2,7 @@
 	font-family: serif;
 }
 #content form {
-	background-image: url(https://img2.baidu.com/it/u=3419533273,1952982563&fm=26&fmt=auto&gp=0.jpg);
+	background-image: url("https://img2.baidu.com/it/u=3419533273,1952982563&fm=26&fmt=auto&gp=0.jpg");
 	background-size: cover;
 	background-size: 12% 6%;
 	background-repeat: horizontal;
@@ -62,7 +62,7 @@ h1 {
 	width: 300px;
 	height: 300px;
 	border-radius: 100%;
-	background-image: url(转盘2.jpg);
+	background-image: url("转盘2.jpg");
 	background-size: 122%;
 	background-position: center;
 	/*animation: turn2 1s linear infinite paused;*/
